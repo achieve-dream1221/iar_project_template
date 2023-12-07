@@ -1,4 +1,10 @@
-# 使用cmake开发iar 8051工程
+<!-- TOC -->
+* [使用cmake开发iar 8051工程, 其他架构同理, 也可参考iar官方cmake教程 (参考文档)[# 参考文档]](#使用cmake开发iar-8051工程-其他架构同理-也可参考iar官方cmake教程-参考文档-参考文档)
+  * [配置步骤](#配置步骤)
+* [参考文档](#参考文档)
+<!-- TOC -->
+
+# 使用cmake开发iar 8051工程, 其他架构同理, 也可参考iar官方cmake教程 (参考文档)[# 参考文档]
 
 ## 配置步骤
 
@@ -9,6 +15,8 @@
 5. 添加新的your_project_dir文件夹, 在根目录的CMakeLists.txt中添加`add_subdirectory(your_project_dir)`
 6. 在your_project_dir文件夹中添加CMakeLists.txt, 参考hello-world的cmake文件
 7. 刷新根目录的cmake, 开始编译即可
+8. 编译好的文件在cmake-build-*/your_project_dir/*/*.bin
+9. 烧录该文件即可
 
 # 参考文档
 

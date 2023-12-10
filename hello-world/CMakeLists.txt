@@ -68,6 +68,7 @@ target_link_options(hello-world PRIVATE
 #target_link_libraries(hello-world LINK_PUBLIC myMath)
 
 # 烧录程序, 通过S(0)指定烧录板子, 通过F指定烧录文件
+# 更多参数说明: 命令行运行 SmartRFProgConsole.exe查看
 add_custom_command(TARGET hello-world POST_BUILD
         COMMAND
         "D:/Program Files (x86)/Texas Instruments/SmartRF Tools/Flash Programmer/bin/SmartRFProgConsole.exe"

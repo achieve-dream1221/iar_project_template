@@ -49,3 +49,8 @@ get_filename_component(BIN_DIR ${CMAKE_C_COMPILER} DIRECTORY)
 get_filename_component(TOOLKIT_DIR ${BIN_DIR} PATH)
 unset(BIN_DIR)
 
+option(ISPLAY_LINKER_SUMMARY "Display linker resource usage" ON)
+if (ISPLAY_LINKER_SUMMARY)
+    string(REGEX REPLACE "(^| )(--silent|-S)($| )" " " CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS}")
+endif ()
+

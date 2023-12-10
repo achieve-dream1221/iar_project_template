@@ -1,46 +1,80 @@
 # Add a executable target named "hello-world"
-add_executable(hello-world
-        # Target sources
-        main.c)
+# 设置编译的可执行文件的后缀名为.d51
+set(CMAKE_EXECUTABLE_SUFFIX ".d51")
 
-# Set the properties for the "hello-world" target
-set_target_properties(hello-world PROPERTIES
-        XCL "${TOOLKIT_DIR}/config/devices/_generic/lnk51ew_8051.xcl"
+add_executable(hello-world main.c)
+
+# 设置“hello-world”目标的属性
+#[[set_target_properties(hello-world PROPERTIES
+        XCL "${TOOLKIT_DIR}/config/devices/Texas Instruments/lnk51ew_cc2530F256_banked.xcl"
         # C-SPY-related properties
-        DDF "${TOOLKIT_DIR}/config/devices/_generic/io8051.ddf")
+        DDF "${TOOLKIT_DIR}/config/devices/Texas Instruments/ioCC2530F256.ddf"
+        DEVICE CC2530F256
+)]]
 
-# Set the compiler flags for the "hello-world" target
+# 为“hello-world”目标设置编译器标志
 target_compile_options(hello-world PRIVATE
-        $<$<COMPILE_LANGUAGE:C>:--core=plain --dptr=16,1 --data_model=large --code_model=near
-        --calling_convention=xdata_reentrant --place_constants=data --nr_virtual_regs 8
-        --dlib --dlib_config ${TOOLKIT_DIR}/lib/dlib/dl8051Normal.h>)
+        $<$<COMPILE_LANGUAGE:C>:
+        --core=plain
+        --dptr=16,1
+        --data_model=large
+        --code_model=banked
+        --calling_convention=xdata_reentrant
+        --place_constants=data
+        --nr_virtual_regs 8
+        --clib
+        # --dlib --dlib_config ${TOOLKIT_DIR}/lib/dlib/dl8051Normal.h
+        >
+)
 
-# Set the linker flags for the target
+# 参数说明: iar安装路径/8051/doc/xlink.ENU.pdf, page: 51
+# 为目标设置链接器标志, iar软件不同配置可以对应设置可以看通过iar软件编译输出的map文件的 Command line, 挨个对应修改
 target_link_options(hello-world PRIVATE
-        -rt
-        # Set the linker script
-        -f $<TARGET_PROPERTY:XCL>
-        ${TOOLKIT_DIR}/lib/dlib/dl-pli-nlxd-1e16x01n.r51
         # Create a map file from the target's UBROF
-        -l $<TARGET_PROPERTY:NAME>.map
-        # The `SHELL:` prefix prevents option de-duplication
-        "SHELL:-D_NR_OF_BANKS=0"
-        "SHELL:-D_CODEBANK_END=0"
-        "SHELL:-D_CODEBANK_START=0"
+        -l $<TARGET_PROPERTY:NAME>.html
+        # -xmsh:输出html格式, -xms: .map格式
+        -xmsh
+        #        "-ID:/Program Files (x86)/iar1030/8051/LIB/"
+        -f "D:/Program Files (x86)/iar1030/8051/config/devices/Texas Instruments/lnk51ew_CC2530F256_banked.xcl"
+        #        "-ID:/Program Files (x86)/iar1030/8051/CONFIG/"
         "SHELL:-D_NR_OF_VIRTUAL_REGISTERS=8"
-        "SHELL:-D?PBANK=0xA0"
+        "SHELL:-D?PBANK=0x93"
+        "SHELL:-D?CBANK=0x9F"
+        "SHELL:-D?CBANK_MASK=0xFF"
+        "SHELL:-e?BCALL_FF=?BCALL"
+        "SHELL:-e?BRET_FF=?BRET"
+        "SHELL:-e?BDISPATCH_FF=?BDISPATCH"
+        "SHELL:-D_CODEBANK_START=0x8000"
+        "SHELL:-D_CODEBANK_END=0xFFFF"
+        "SHELL:-D_NR_OF_BANKS=0x07"
+        -rt
+        -Ointel-extended=.hex
+        #        -s __program_start
+        "D:/Program Files (x86)/iar1030/8051/LIB/CLIB/cl-pli-blxd-1e16x01.r51"
         "SHELL:-D_IDATA_STACK_SIZE=0x40"
         "SHELL:-D?ESP=0"
         "SHELL:-D?ESP_MASK=0"
         "SHELL:-D_EXTENDED_STACK_START=0"
         "SHELL:-D_EXTENDED_STACK_SIZE=0"
         "SHELL:-D_PDATA_STACK_SIZE=0x80"
-        "SHELL:-D_XDATA_STACK_SIZE=0xEFF"
+        "SHELL:-D_XDATA_STACK_SIZE=0x1FF"
         "SHELL:-D_XDATA_HEAP_SIZE=0xFF"
         "SHELL:-D_FAR_HEAP_SIZE=0xFFF"
         "SHELL:-D_HUGE_HEAP_SIZE=0xFFF"
-        "SHELL:-D_FAR22_HEAP_SIZE=0xFFF")
+        "SHELL:-D_FAR22_HEAP_SIZE=0xFFF"
+)
 
 # Link "hello-world" against the "myMath" library
 #target_link_libraries(hello-world LINK_PUBLIC myMath)
+
+# 烧录程序, 通过S(0)指定烧录板子, 通过F指定烧录文件
+add_custom_command(TARGET hello-world POST_BUILD
+        COMMAND
+        "D:/Program Files (x86)/Texas Instruments/SmartRF Tools/Flash Programmer/bin/SmartRFProgConsole.exe"
+        "S(0)" EPV F=${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_BUILD_TYPE}/$<TARGET_PROPERTY:NAME>.hex
+        # S(n): n: Type S(n), where n is the board ID number, to select a specific EB.
+        #      Otherwise, if there are multiple boards, the one to be programmed will be
+        #      selected at random.
+        # EPV: erase, program, verify
+)
 

@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.22)
 
 # Set the project name, [description] and [version],
 # while enabling its required languages
-project(Example1 
+project(Example1
   DESCRIPTION "Mixing C and Assembly"
   VERSION 1.0.0
   LANGUAGES C ASM )

@@ -67,12 +67,17 @@ target_link_options(hello-world PRIVATE
 # Link "hello-world" against the "myMath" library
 #target_link_libraries(hello-world LINK_PUBLIC myMath)
 
+# 设置编译类型为Debug
+set(BUILD_TYPE Debug)
+# 设置烧录软件路径
+set(SmartRFProgConsole "D:/Program Files (x86)/Texas Instruments/SmartRF Tools/Flash Programmer/bin/SmartRFProgConsole.exe")
+
 # 烧录程序, 通过S(0)指定烧录板子, 通过F指定烧录文件
 # 更多参数说明: 命令行运行 SmartRFProgConsole.exe查看
 add_custom_command(TARGET hello-world POST_BUILD
         COMMAND
-        "D:/Program Files (x86)/Texas Instruments/SmartRF Tools/Flash Programmer/bin/SmartRFProgConsole.exe"
-        "S(0)" EPV F=${CMAKE_CURRENT_BINARY_DIR}/${CMAKE_BUILD_TYPE}/$<TARGET_PROPERTY:NAME>.hex
+        ${SmartRFProgConsole}
+        "S(0)" EPV F=${CMAKE_CURRENT_BINARY_DIR}/${BUILD_TYPE}/$<TARGET_PROPERTY:NAME>.hex
         # S(n): n: Type S(n), where n is the board ID number, to select a specific EB.
         #      Otherwise, if there are multiple boards, the one to be programmed will be
         #      selected at random.

@@ -1,5 +1,5 @@
 # Toolchain File for the IAR C/C++ Compiler
-
+# cmake编译选项添加: -G "Ninja Multi-Config" --toolchain iar-toolchain.cmake
 # Action: Set the `TOOLKIT` variable
 # Examples: arm, riscv, rh850, rl78, rx, stm8, 430, 8051, avr or v850
 # Alternative: override the default TOOLKIT_DIR (/path/to/installation/<arch>)

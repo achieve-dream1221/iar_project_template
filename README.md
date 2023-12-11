@@ -15,7 +15,7 @@
 3. 配置cmake编译选项: `-G "Ninja Multi-Config" --toolchain iar-toolchain.cmake` ![img_1.png](resources/cmake.png)
 4. 修改iar-toolchain.cmake文件中的iar安装路径, 例如`set(TOOLKIT "D:/Program Files (x86)/iar1030/8051")`
 5. 添加新的your_project_dir文件夹, 在根目录的CMakeLists.txt中添加`add_subdirectory(your_project_dir)`
-6. 在your_project_dir文件夹中添加CMakeLists.txt, 参考hello-world的cmake文件
+6. 在your_project_dir文件夹中添加CMakeLists.txt, 参考hello-world的cmake文件, **注意修改cmake文件编译类型和烧录软件的路径**
 7. 刷新根目录的cmake, 开始编译即可
 8. 编译好的文件在`cmake-build-*/your_project_dir/*/*.hex`
 9. 烧录该文件即可

@@ -20,8 +20,8 @@
 7. 刷新根目录的cmake, 开始编译即可
 8. 编译好的文件在`cmake-build-*/your_project_dir/*/*.hex`
 9. 配置烧录: ![img.png](resources/download%20program.png)
-10. 点击运行按钮, 输入要烧录的板子串口的EBID, 例如53![img.png](EBID.png)
-
+10. 点击运行按钮, 输入要烧录的板子串口的EBID, 例如53! `S($Prompt$) EP F=$CMakeCurrentBuildDir$/$CMakeCurrentBuildTypeName$/$CMakeCurrentTargetName$.hex` [img.png](EBID.png)
+  **增加输入EBID进行自动烧录, 去除了验证步骤, 加速烧录, 但可能存在一定bug, 如需启用验证,请修改EP为EPV**
 ## 目录说明
 
 - 8051: 官方cmake教程的8051工程

@@ -101,7 +101,7 @@ add_executable(GenericApp
 )
 
 
-# define Symbols
+# TODO: define Symbols, 预定义宏, 可以在iar软件中查看
 target_compile_definitions(GenericApp PRIVATE
         SECURE=1
         TC_LINKKEY_JOIN

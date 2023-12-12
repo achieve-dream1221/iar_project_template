@@ -13,7 +13,7 @@ target_compile_options(template PRIVATE
         --code_model=banked
         --calling_convention=xdata_reentrant
         --place_constants=data_rom
-        --nr_virtual_regs 8
+        --nr_virtual_regs=16
         --clib
         # --dlib --dlib_config ${TOOLKIT_DIR}/lib/dlib/dl8051Normal.h
         >

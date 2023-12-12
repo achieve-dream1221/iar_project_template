@@ -166,7 +166,7 @@ target_compile_options(GenericApp PRIVATE
         --code_model=banked
         --calling_convention=xdata_reentrant
         --place_constants=data_rom
-        --nr_virtual_regs 24 #  Specifies number of virtual registers (default 8)
+        --nr_virtual_regs=24 #  Specifies number of virtual registers (default 8)
         --clib
         -e #  Enable IAR C/C++ language extensions
         -f ${TOOLS_CFG}/f8wRouter.cfg # TODO: 对应的设备,修改对应的cfg名称,终端设备f8wEndev.cfg, 协调器: f8wCoord.cfg

@@ -27,7 +27,7 @@ target_compile_definitions(mixLanguages PUBLIC USE_ASM=1)
 # Set compile options for the target
 target_compile_options(mixLanguages PRIVATE
   $<$<COMPILE_LANGUAGE:C>:--core=plain --dptr=16,1 --data_model=large --code_model=near --calling_convention=xdata_reentrant --place_constants=data --nr_virtual_regs 8 --dlib --dlib_config ${TOOLKIT_DIR}/lib/dlib/dl8051Normal.h>
-  $<$<COMPILE_LANGUAGE:ASM>:-v0 -D__CORE__=1 -D__CODE_MODEL__=1 -D__DATA_MODEL__=1 -D__CALLING_CONVENTION__=2 -D__NUMBER_OF_DPTRS__=1> )
+  $<$<COMPILE_LANGUAGE:ASM>:-D__CORE__=1 -D__CODE_MODEL__=1 -D__DATA_MODEL__=1 -D__CALLING_CONVENTION__=2 -D__NUMBER_OF_DPTRS__=1> )
 
 # Set the link options for the target
 target_link_options(mixLanguages PRIVATE

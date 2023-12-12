@@ -1,19 +1,11 @@
-# Add a executable target named "hello-world"
+# Add a executable target named "template"
 # 设置编译的可执行文件的后缀名为.d51
 set(CMAKE_EXECUTABLE_SUFFIX ".d51")
 
-add_executable(hello-world main.c)
+add_executable(template main.c)
 
-# 设置“hello-world”目标的属性
-#[[set_target_properties(hello-world PROPERTIES
-        XCL "${TOOLKIT_DIR}/config/devices/Texas Instruments/lnk51ew_cc2530F256_banked.xcl"
-        # C-SPY-related properties
-        DDF "${TOOLKIT_DIR}/config/devices/Texas Instruments/ioCC2530F256.ddf"
-        DEVICE CC2530F256
-)]]
-
-# 为“hello-world”目标设置编译器标志
-target_compile_options(hello-world PRIVATE
+# 为“template”目标设置编译器标志
+target_compile_options(template PRIVATE
         $<$<COMPILE_LANGUAGE:C>:
         --core=plain
         --dptr=16,1
@@ -29,7 +21,7 @@ target_compile_options(hello-world PRIVATE
 
 # 参数说明: iar安装路径/8051/doc/xlink.ENU.pdf, page: 51
 # 为目标设置链接器标志, iar软件不同配置可以对应设置可以看通过iar软件编译输出的map文件的 Command line, 挨个对应修改
-target_link_options(hello-world PRIVATE
+target_link_options(template PRIVATE
         # Create a map file from the target's UBROF
         -l $<TARGET_PROPERTY:NAME>.html
         # -xmsh:输出html格式, -xms: .map格式
@@ -64,8 +56,8 @@ target_link_options(hello-world PRIVATE
         "SHELL:-D_FAR22_HEAP_SIZE=0xFFF"
 )
 
-# Link "hello-world" against the "myMath" library
-#target_link_libraries(hello-world LINK_PUBLIC myMath)
+# Link "template" against the "myMath" library
+#target_link_libraries(template LINK_PUBLIC myMath)
 
 # 设置编译类型为Debug
 set(BUILD_TYPE Debug)
@@ -74,13 +66,12 @@ set(SmartRFProgConsole "D:/Program Files (x86)/Texas Instruments/SmartRF Tools/F
 
 # 烧录程序, 通过S(0)指定烧录板子, 通过F指定烧录文件
 # 更多参数说明: 命令行运行 SmartRFProgConsole.exe查看
-add_custom_command(TARGET hello-world POST_BUILD
+add_custom_command(TARGET template POST_BUILD
         COMMAND
         ${SmartRFProgConsole}
-        "S(0)" EPV F=${CMAKE_CURRENT_BINARY_DIR}/${BUILD_TYPE}/$<TARGET_PROPERTY:NAME>.hex
+        "S(53)" EPV F=${CMAKE_CURRENT_BINARY_DIR}/${BUILD_TYPE}/$<TARGET_PROPERTY:NAME>.hex
         # S(n): n: Type S(n), where n is the board ID number, to select a specific EB.
         #      Otherwise, if there are multiple boards, the one to be programmed will be
         #      selected at random.
         # EPV: erase, program, verify
 )
-

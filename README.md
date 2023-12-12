@@ -19,7 +19,8 @@
 6. 在your_project_dir文件夹中添加CMakeLists.txt, 参考template的cmake文件, **注意修改cmake文件编译类型和烧录软件的路径**
 7. 刷新根目录的cmake, 开始编译即可
 8. 编译好的文件在`cmake-build-*/your_project_dir/*/*.hex`
-9. 烧录该文件即可
+9. 配置烧录: ![img.png](resources/download%20program.png)
+10. 点击运行按钮, 输入要烧录的板子串口的EBID, 例如53![img.png](EBID.png)
 
 ## 目录说明
 

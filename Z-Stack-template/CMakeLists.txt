@@ -11,9 +11,9 @@ set(Project_Zstack "E:/clion/zstack-template/Projects/zstack")
 # cfg文件路径, 复制到项目中,便于修改
 set(TOOLS_CFG "E:/clion/iar_project_template/CC2530DB_CONFIG")
 # 设置编译类型为Debug
-set(BUILD_TYPE Release)
+#set(BUILD_TYPE Release)
 # 设置烧录软件路径Smart RF Flash Programmer
-set(SmartRFProgConsole "D:/Program Files (x86)/Texas Instruments/SmartRF Tools/Flash Programmer/bin/SmartRFProgConsole.exe")
+#set(SmartRFProgConsole "D:/Program Files (x86)/Texas Instruments/SmartRF Tools/Flash Programmer/bin/SmartRFProgConsole.exe")
 
 
 add_executable(GenericApp
@@ -234,6 +234,7 @@ target_link_options(GenericApp PRIVATE
 # Link "Z-Stack-template" against the "myMath" library
 #target_link_libraries(Z-Stack-template LINK_PUBLIC myMath)
 
+#[[
 # 烧录程序, 通过S(0)指定烧录板子, 通过F指定烧录文件
 # 更多参数说明: 命令行运行 SmartRFProgConsole.exe查看
 add_custom_command(TARGET GenericApp POST_BUILD
@@ -245,3 +246,4 @@ add_custom_command(TARGET GenericApp POST_BUILD
         #      selected at random.
         # EPV: erase, program, verify
 )
+]]

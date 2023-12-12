@@ -19,7 +19,7 @@
 6. 在your_project_dir文件夹中添加CMakeLists.txt, 参考template的cmake文件, **注意修改cmake文件编译类型和烧录软件的路径**
 7. 刷新根目录的cmake, 开始编译即可
 8. 编译好的文件在`cmake-build-*/your_project_dir/*/*.hex`
-9. 配置烧录: ![img.png](resources/download%20program.png)
+9. 配置烧录: ![img.png](resources/download.png)
 10. 点击运行按钮, 输入要烧录的板子串口的EBID, 例如53! `S($Prompt$) EP F=$CMakeCurrentBuildDir$/$CMakeCurrentBuildTypeName$/$CMakeCurrentTargetName$.hex` [img.png](EBID.png)
   **增加输入EBID进行自动烧录, 去除了验证步骤, 加速烧录, 但可能存在一定bug, 如需启用验证,请修改EP为EPV**
 ## 目录说明

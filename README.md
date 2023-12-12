@@ -1,8 +1,10 @@
 <!-- TOC -->
+
 * [使用cmake开发iar 8051工程](#使用cmake开发iar-8051工程)
-  * [配置步骤](#配置步骤)
-  * [目录说明](#目录说明)
+    * [配置步骤](#配置步骤)
+    * [目录说明](#目录说明)
 * [参考文档](#参考文档)
+
 <!-- TOC -->
 
 # 使用cmake开发iar 8051工程
@@ -26,7 +28,8 @@
 - 8051: 官方cmake教程的8051工程
 - CC2530DB_CONFIG: 复制于Z-stack install dir/Projects/zstack/Tools/CC2530DB, 用于便于修改zstack项目的配置
 - template: 基础cc2530工程, 用于快速创建新的工程
-- Z-Stack-template: 基于template的zstack工程, 用于快速创建新的zstack工程
+- Z-Stack-template: 基于template的zstack工程, 用于快速创建新的zstack工程, **对应设备COORDINATOR, ROUTER,
+  ENDDEVICE需要修改内部cmake对应TODO位置的内容**
 
 # 参考文档
 

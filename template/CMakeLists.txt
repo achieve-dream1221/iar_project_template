@@ -59,6 +59,7 @@ target_link_options(template PRIVATE
 # Link "template" against the "myMath" library
 #target_link_libraries(template LINK_PUBLIC myMath)
 
+#[[
 # 设置编译类型为Debug
 set(BUILD_TYPE Debug)
 # 设置烧录软件路径
@@ -75,3 +76,4 @@ add_custom_command(TARGET template POST_BUILD
         #      selected at random.
         # EPV: erase, program, verify
 )
+]]

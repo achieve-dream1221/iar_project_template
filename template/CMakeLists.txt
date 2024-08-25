@@ -4,31 +4,32 @@ set(CMAKE_EXECUTABLE_SUFFIX ".d51")
 
 add_executable(template main.c)
 
-# 为“template”目标设置编译器标志
+
+# CLIB Version
 target_compile_options(template PRIVATE
         $<$<COMPILE_LANGUAGE:C>:
-        --core=plain
-        --dptr=16,1
+        #        --core=plain
+        #        --dptr=16,1
         --data_model=large
         --code_model=banked
         --calling_convention=xdata_reentrant
-        --place_constants=data_rom
-        --nr_virtual_regs=16
+        #        --place_constants=data_rom
+        #        --nr_virtual_regs=16
         --clib
-        # --dlib --dlib_config ${TOOLKIT_DIR}/lib/dlib/dl8051Normal.h
         >
 )
+
 
 # 参数说明: iar安装路径/8051/doc/xlink.ENU.pdf, page: 51
 # 为目标设置链接器标志, iar软件不同配置可以对应设置可以看通过iar软件编译输出的map文件的 Command line, 挨个对应修改
 target_link_options(template PRIVATE
         # Create a map file from the target's UBROF
-        -l $<TARGET_PROPERTY:NAME>.html
+        -l $<TARGET_PROPERTY:NAME>.map
         # -xmsh:输出html格式, -xms: .map格式
-        -xmsh
-        #        "-ID:/Program Files (x86)/iar1030/8051/LIB/"
+        -xms
+        "-ID:/Program Files (x86)/iar1030/8051/LIB/"
         -f "D:/Program Files (x86)/iar1030/8051/config/devices/Texas Instruments/lnk51ew_CC2530F256_banked.xcl"
-        #        "-ID:/Program Files (x86)/iar1030/8051/CONFIG/"
+        "-ID:/Program Files (x86)/iar1030/8051/CONFIG/"
         "SHELL:-D_NR_OF_VIRTUAL_REGISTERS=8"
         "SHELL:-D?PBANK=0x93"
         "SHELL:-D?CBANK=0x9F"
@@ -41,8 +42,9 @@ target_link_options(template PRIVATE
         "SHELL:-D_NR_OF_BANKS=0x07"
         -rt
         -Ointel-extended=.hex
-        #        -s __program_start
-        "D:/Program Files (x86)/iar1030/8051/LIB/CLIB/cl-pli-blxd-1e16x01.r51"
+        -s __program_start
+        #        "D:/Program Files (x86)/iar1030/8051/LIB/DLIB/dl-pli-blxd-1e16x01n.r51" # DLIB
+        "D:/Program Files (x86)/iar1030/8051/LIB/CLIB/cl-pli-blxd-1e16x01.r51" #CLIB
         "SHELL:-D_IDATA_STACK_SIZE=0x40"
         "SHELL:-D?ESP=0"
         "SHELL:-D?ESP_MASK=0"
@@ -56,8 +58,22 @@ target_link_options(template PRIVATE
         "SHELL:-D_FAR22_HEAP_SIZE=0xFFF"
 )
 
+# 为“template”目标设置编译器标志
+# DLIB version 目前不能使用
+#DLIB can be used with both the C and the C++ languages. CLIB, on the other
+#hand, can only be used with the C language. For more information about CLIB,
+#see the chapter The CLIB runtime environment.
+#target_compile_options(template PRIVATE
+#        $<$<COMPILE_LANGUAGE:C>:
+#        --data_model=large
+#        --code_model=banked
+#        --calling_convention=xdata_reentrant
+#        --dlib
+#        --dlib_config ${TOOLKIT_DIR}/lib/dlib/dl8051Normal.h
+#        >
+#)
 # Link "template" against the "myMath" library
-#target_link_libraries(template LINK_PUBLIC myMath)
+#target_link_libraries(template LINK_PUBLIC "dl-pli-blxd-1e16x01n.r51")
 
 #[[
 # 设置编译类型为Debug

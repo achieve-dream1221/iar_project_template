@@ -1,8 +1,10 @@
 <!-- TOC -->
+
 * [使用cmake开发iar 8051工程](#使用cmake开发iar-8051工程)
-  * [配置步骤](#配置步骤)
-  * [目录说明](#目录说明)
+    * [配置步骤](#配置步骤)
+    * [目录说明](#目录说明)
 * [参考文档](#参考文档)
+
 <!-- TOC -->
 
 # 使用cmake开发iar 8051工程
@@ -12,6 +14,7 @@
 ## 配置步骤
 
 **目前好像只有Debug模式可以正常运行, 其他模式虽然能够编译成功,但是测试失败**
+
 1. 新建一个基于cmake的空项目
 2. 添加自定义工具链, ![img.png](resources/toolchain.png)
 3. 配置cmake编译选项: `-G "Ninja Multi-Config" --toolchain iar-toolchain.cmake` ![img_1.png](resources/cmake.png)
@@ -21,8 +24,9 @@
 7. 刷新根目录的cmake, 开始编译即可
 8. 编译好的文件在`cmake-build-*/your_project_dir/*/*.hex`
 9. 配置烧录: ![img.png](resources/download.png)
-10. 点击运行按钮, 输入要烧录的板子串口的EBID, 例如53! `S($Prompt$) EP F=$CMakeCurrentBuildDir$/$CMakeCurrentBuildTypeName$/$CMakeCurrentTargetName$.hex` [img.png](EBID.png)
-**增加输入EBID进行自动烧录, 去除了验证步骤, 加速烧录, 但可能存在一定bug, 如需启用验证,请修改EP为EPV**
+10. 点击运行按钮, 输入要烧录的板子串口的EBID, 例如53!
+    `S($Prompt$) EP F=$CMakeCurrentBuildDir$/$CMakeCurrentBuildTypeName$/$CMakeCurrentTargetName$.hex` [img.png](EBID.png)
+    **增加输入EBID进行自动烧录, 去除了验证步骤, 加速烧录, 但可能存在一定bug, 如需启用验证,请修改EP为EPV**
 
 ## 目录说明
 
@@ -38,4 +42,4 @@
 
 [xlink options](resources/xlink_ENU.pdf)
 
-[8051_CompilerGuide options](https://wwwfiles.iar.com/8051/webic/doc/EW8051_CompilerGuide.pdf)
+[8051_CompilerGuide options](resources/EW8051_CompilerGuide.pdf)

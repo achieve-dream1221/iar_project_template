@@ -60,10 +60,9 @@ target_link_options(template PRIVATE
 #target_link_libraries(template LINK_PUBLIC myMath)
 
 # 设置编译类型为Debug
-#set(BUILD_TYPE Debug)
+set(BUILD_TYPE Debug)
 # 设置烧录软件路径
-#set(SmartRFProgConsole "D:/Program Files (x86)/Texas Instruments/SmartRF Tools/Flash Programmer/bin/SmartRFProgConsole.exe")
-#[[
+set(SmartRFProgConsole "D:/Program Files (x86)/Texas Instruments/SmartRF Tools/Flash Programmer/bin/SmartRFProgConsole.exe")
 
 # 烧录程序, 通过S(0)指定烧录板子, 通过F指定烧录文件
 # 更多参数说明: 命令行运行 SmartRFProgConsole.exe查看
@@ -76,4 +75,3 @@ add_custom_command(TARGET template POST_BUILD
         #      selected at random.
         # EPV: erase, program, verify
 )
-]]

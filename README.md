@@ -1,13 +1,14 @@
 <!-- TOC -->
-
 * [使用cmake开发iar 8051工程](#使用cmake开发iar-8051工程)
-    * [配置步骤](#配置步骤)
-    * [目录说明](#目录说明)
+  * [配置步骤](#配置步骤)
+  * [目录说明](#目录说明)
 * [参考文档](#参考文档)
-
 <!-- TOC -->
 
 # 使用cmake开发iar 8051工程
+
+> 虽然支持meson构建,但是目前meson不支持8051编译,因此Clion不能提供代码提示
+> https://mesonbuild.com/Reference-tables.html
 
 | 其他架构同理, 也可参考iar官方cmake教程 [goto 参考文档](#参考文档)
 
